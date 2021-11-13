@@ -20,5 +20,6 @@ Harry Potter
 - [Practicing sentiment analysis with HP](https://cfss.uchicago.edu/notes/harry-potter-exercise/)
 - [R package for HP series](https://github.com/bradleyboehmke/harrypotter)
 - [Harry Potter palette](https://github.com/aljrico/harrypotter)
+- [Harry Potter text analysis with tidy text](https://uc-r.github.io/tidy_text)
 
 - [Software Galaxy Documentation](https://github.com/anvaka/pm/tree/master/about)
