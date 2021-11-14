@@ -103,5 +103,10 @@ selected_vector <- word_vectors["harry",]
 
 similarities <- word_vectors %*% selected_vector 
 
-test <- similarities %>% as_tibble() %>% setNames(c("A", "B", "C"))
+a <- similarities[,-1] #tokens
+b <- similarities[,1]
+pres_synonym <- data.frame(b)
+colnames(pres_synonym)[0] <- "token"
+colnames(pres_synonym)[1] <- "similarity"
 
+head(pres_synonym %>% arrange(-similarity))
