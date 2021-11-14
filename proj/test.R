@@ -78,31 +78,30 @@ pmi_matrix@x[is.na(pmi_matrix@x)] <- 0
 pmi_svd <- irlba(pmi_matrix, 256, maxit = 500)
 #next we output the word vectors:
 word_vectors <- pmi_svd$u
-what <- rownames(pmi_matrix)
+rownames <- rownames(pmi_matrix)
 rownames(word_vectors) <- what
 
-search_synonyms <- function(word_vectors, selected_vector) {
-  
-  similarities <- word_vectors %*% selected_vector %>%
-    tidy() %>%
-    as_tibble() %>%
-    rename(token = .rownames,
-           similarity = unrowname.x.)
-  
-  similarities %>%
-    arrange(-similarity)    
-}
-pres_synonym <- search_synonyms(word_vectors,word_vectors["harry",])
+#' Julia Silge Function
+#' search_synonyms <- function(word_vectors, #' selected_vector) {
+#'   
+#'   similarities <- word_vectors %*% selected_vector %>%
+#'     tidy() %>%
+#'     as_tibble() %>%
+#'     plyr::rename(token = .rownames,
+#'            similarity = unrowname.x.)
+#'   
+#'   similarities %>%
+#'     arrange(-similarity)    
+#' }
 
-similarities <- word_vectors %*% word_vectors["harry",] %>%
-  tidy() %>%
-  as_tibble() %>%
-  rename(token = rownames,
-         similarity = unrowname.x.)
-
-rownames(word_vectors)
-word_vectors %>% names %>% str_detect("rownames") %>% any()
 #' @comment: code from JS renames column called 'rownames' as token
 #' but i miss the part where i'm supposed to make a rowname column
 #' what is function *rename* and what is token needed for?
 #' also what is *unrowname.x.*
+
+selected_vector <- word_vectors["harry",]
+
+similarities <- word_vectors %*% selected_vector 
+
+test <- similarities %>% as_tibble() %>% setNames(c("A", "B", "C"))
+
