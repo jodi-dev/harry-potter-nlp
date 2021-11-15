@@ -99,14 +99,13 @@ rownames(word_vectors) <- what
 #' what is function *rename* and what is token needed for?
 #' also what is *unrowname.x.*
 
-selected_vector <- word_vectors["harry",]
+selected_vector <- word_vectors["voldemort",]
 
 similarities <- word_vectors %*% selected_vector 
 
-a <- similarities[,-1] #tokens
+rownames_only_or_someting <- similarities[,-1] #tokens
 b <- similarities[,1]
 pres_synonym <- data.frame(b)
-colnames(pres_synonym)[0] <- "token"
 colnames(pres_synonym)[1] <- "similarity"
 
 head(pres_synonym %>% arrange(-similarity))
