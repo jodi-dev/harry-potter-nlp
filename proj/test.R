@@ -99,7 +99,7 @@ rownames(word_vectors) <- what
 #' what is function *rename* and what is token needed for?
 #' also what is *unrowname.x.*
 
-selected_vector <- word_vectors["oliver",]
+selected_vector <- word_vectors["hermione",]
 
 similarities <- word_vectors %*% selected_vector 
 
