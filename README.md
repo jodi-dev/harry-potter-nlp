@@ -26,3 +26,14 @@ Harry Potter
 
 
 - [Software Galaxy Documentation](https://github.com/anvaka/pm/tree/master/about)
+
+
+## Tutorials
+- [network analysis using r](https://slcladal.github.io/net.html) can visualize character relationship network
+- [ggnet](https://briatte.github.io/ggnet/)
+- [gephi](https://www.r-bloggers.com/2013/07/network-visualization-part-2-gephi/)
+- [3d network graph in plotly that doens't look 3d](https://plotly.com/python/v3/3d-network-graph/)
+
+
+
+
