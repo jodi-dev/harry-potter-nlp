@@ -1,11 +1,3 @@
-library(tidyverse)
-library(tidytext)
-library(harrypotter)
-library(textnets)
-library(stringi)
-
-set.seed(1234)
-
 # names of each book
 hp_books <- c(
   "philosophers_stone"
@@ -40,9 +32,6 @@ hp_words <- list(
   mutate(chapter = row_number(book)) %>%
   ungroup()
 
-lst <- hp_words %>%
-  filter(chapter == 17)
-
 #' https://www.sparknotes.com/lit/harrypotter/characters/
 characters <- c(
   "Harry",
@@ -61,24 +50,11 @@ characters <- c(
 
 #' @references:
 #' https://stackoverflow.com/questions/29508943/r-regular-expression-isolate-a-string-between-quotes
-hp_quotes <- stri_extract_all_regex(lst$value, '.{15}"[^"]*".{20}')[[1]]
+hp_quotes <- stri_extract_all_regex(hp_words$value, '.{15}"[^"]*".{20}')[[1]]
 
 #' Regex to match name in some number of words window after \"
 
-sample_lst <- c(
-  # make a sample and text regex, then apply to whole list
-  # in the end add a new column to the quotes with plausible char name, if nothing
-  # then NA
-  hp_quotes[4],
-  hp_quotes[5],
-  hp_quotes[61],
-  hp_quotes[113],
-  hp_quotes[96],
-  hp_quotes[133],
-  hp_quotes[135],
-  hp_quotes[137]
-)
-sample_lst <- as.data.frame(sample_lst)
+sample_lst <- as.data.frame(hp_quotes)
 names(sample_lst)[1] <- "quotes"
 
 #' @references: 
@@ -86,11 +62,11 @@ names(sample_lst)[1] <- "quotes"
 # pattern_words  <- paste0('\\b', characters, '\\b', collapse = "|")
 # sample_lst$result <- c('Not Found', 'Found')[str_detect(sample_lst, pattern_words) + 1]
 
-sample_lst %>% 
-  rowwise() %>%
-  mutate(animals = paste(list_of_words[unlist(
-    lapply(list_of_words, function(x) grepl(x, text, ignore.case = T)))], collapse=",")) %>%
-  data.frame()
+# sample_lst %>% 
+#   rowwise() %>%
+#   mutate(animals = paste(list_of_words[unlist(
+#     lapply(list_of_words, function(x) grepl(x, text, ignore.case = T)))], collapse=",")) %>%
+#   data.frame()
 
 list_of_words <- c(
   "Harry",
@@ -108,16 +84,9 @@ list_of_words <- c(
 )
 
 df <- tibble::tibble(#page=c(12,6,9,18,2,15,81,65),
-                     text=c(hp_quotes[4],
-                            hp_quotes[5],
-                            hp_quotes[61],
-                            hp_quotes[113],
-                            hp_quotes[96],
-                            hp_quotes[133],
-                            hp_quotes[135],
-                            hp_quotes[137]))
+  text= hp_quotes[1:75])
 
-characters <- c("dog,hen", "lion,tiger", "horse", FALSE, "dog", "tiger", "lion", FALSE)
+characters <- vector(mode="character", length=75)
 
 df2 <- df %>% 
   rowwise() %>%
@@ -125,7 +94,9 @@ df2 <- df %>%
     lapply(list_of_words, function(x) grepl(x, text, ignore.case = T)))], collapse=",")) %>%
   data.frame()
 
-df3 <- df2[4:7, ]
+df3 <- df2 %>%
+  na_if("") %>%
+  drop_na()
 
 
 #####
@@ -134,4 +105,4 @@ prepped_hp <- PrepText(df3, groupvar = "characters", textvar = "text", node_type
 
 hp_text_network <- CreateTextnet(prepped_hp)
 
-# VisTextNet(hp_text_network, label_degree_cut = 0)
+VisTextNet(hp_text_network, label_degree_cut = 0)
