@@ -45,31 +45,85 @@ lst <- hp_words %>%
 
 #' https://www.sparknotes.com/lit/harrypotter/characters/
 characters <- c(
-  "harry",
-  "hermione",
-  "ron",
-  "hagrid",
-  "dumbledore",
-  "voldemort",
-  "malfoy",
-  "neville",
-  "mcgonagall",
-  "snape",
-  "quirrell"
+  "Harry",
+  "Hermione",
+  "Ron",
+  "Hagrid",
+  "Dumbledore",
+  "Voldemort",
+  "Malfoy",
+  "Neville",
+  "Mcgonagall",
+  "Snape",
+  "Quirrell",
+  "Ginny"
 )
 
 #' @references:
 #' https://stackoverflow.com/questions/29508943/r-regular-expression-isolate-a-string-between-quotes
-hp_quotes <- stri_extract_all_regex(lst$value, '.{15}"[^"]*".{15}')[[1]]
+hp_quotes <- stri_extract_all_regex(lst$value, '.{15}"[^"]*".{20}')[[1]]
 
 #' Regex to match name in some number of words window after \"
 
-sample_lst <- list(
+sample_lst <- c(
   # make a sample and text regex, then apply to whole list
   # in the end add a new column to the quotes with plausible char name, if nothing
   # then NA
-  hp_quotes[14]
+  hp_quotes[4],
+  hp_quotes[5],
+  hp_quotes[61],
+  hp_quotes[113],
+  hp_quotes[96],
+  hp_quotes[133],
+  hp_quotes[135],
+  hp_quotes[137]
 )
+sample_lst <- as.data.frame(sample_lst)
+names(sample_lst)[1] <- "quotes"
+
+#' @references: 
+#' https://stackoverflow.com/questions/60942627/exact-match-from-list-of-words-from-a-text-in-r
+# pattern_words  <- paste0('\\b', characters, '\\b', collapse = "|")
+# sample_lst$result <- c('Not Found', 'Found')[str_detect(sample_lst, pattern_words) + 1]
+
+sample_lst %>% 
+  rowwise() %>%
+  mutate(animals = paste(list_of_words[unlist(
+    lapply(list_of_words, function(x) grepl(x, text, ignore.case = T)))], collapse=",")) %>%
+  data.frame()
+
+list_of_words <- c(
+  "Harry",
+  "Hermione",
+  "Ron",
+  "Hagrid",
+  "Dumbledore",
+  "Voldemort",
+  "Malfoy",
+  "Neville",
+  "Mcgonagall",
+  "Snape",
+  "Quirrell",
+  "Ginny"
+)
+
+df <- tibble::tibble(#page=c(12,6,9,18,2,15,81,65),
+                     text=c(hp_quotes[4],
+                            hp_quotes[5],
+                            hp_quotes[61],
+                            hp_quotes[113],
+                            hp_quotes[96],
+                            hp_quotes[133],
+                            hp_quotes[135],
+                            hp_quotes[137]))
+
+characters <- c("dog,hen", "lion,tiger", "horse", FALSE, "dog", "tiger", "lion", FALSE)
+
+df %>% 
+  rowwise() %>%
+  mutate(characters = paste(list_of_words[unlist(
+    lapply(list_of_words, function(x) grepl(x, text, ignore.case = T)))], collapse=",")) %>%
+  data.frame()
 
 #####
 
