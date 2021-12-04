@@ -27,14 +27,14 @@ corpus <- list(
 philo <- corpus[,!(names(corpus) == "book")]
 
 # We want to use original tweets, not retweets:
-elected_no_retweets <- elected_official_tweets %>%
-  filter(is_retweet == F) %>%
-  select(c("text"))
+# elected_no_retweets <- elected_official_tweets %>%
+#   filter(is_retweet == F) %>%
+#   select(c("text"))
 
 #create tweet id
-elected_no_retweets$postID<-row.names(elected_no_retweets)
+#elected_no_retweets$postID<-row.names(elected_no_retweets)
 
-#create context window with length 8
+#create context window with length n
 tidy_skipgrams <- philo %>%
   unnest_tokens(ngram, text, token = "ngrams", n = 30) %>%
   dplyr::mutate(ngramID = row_number()) %>%
@@ -109,3 +109,12 @@ pres_synonym <- data.frame(b)
 colnames(pres_synonym)[1] <- "similarity"
 
 head(pres_synonym %>% arrange(-similarity))
+
+
+
+
+
+
+
+
+
