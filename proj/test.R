@@ -14,7 +14,12 @@ options(stringsAsFactors = F, # do not convert upon loading
 
 # LOAD IN BOOKS
 corpus <- list(
-  philosophers_stone = philosophers_stone
+  philosophers_stone = philosophers_stone,
+  chamber_of_secrets = chamber_of_secrets,
+  prisoner_of_azkaban = prisoner_of_azkaban,
+  goblet_of_fire = goblet_of_fire,
+  half_blood_prince = half_blood_prince,
+  deathly_hallows = deathly_hallows
 ) %>%  
   ldply(rbind) %>% # bind all chapter text to dataframe columns
   mutate(book = factor(seq_along(.id), labels = .id)) %>% # identify associated book
@@ -79,7 +84,7 @@ pmi_svd <- irlba(pmi_matrix, 256, maxit = 500)
 #next we output the word vectors:
 word_vectors <- pmi_svd$u
 rownames <- rownames(pmi_matrix)
-rownames(word_vectors) <- what
+rownames(word_vectors) <- rownames(pmi_matrix)
 
 #' Julia Silge Function
 #' search_synonyms <- function(word_vectors, #' selected_vector) {
@@ -99,7 +104,7 @@ rownames(word_vectors) <- what
 #' what is function *rename* and what is token needed for?
 #' also what is *unrowname.x.*
 
-selected_vector <- word_vectors["hermione",]
+selected_vector <- word_vectors["fleur",]
 
 similarities <- word_vectors %*% selected_vector 
 
@@ -108,13 +113,16 @@ b <- similarities[,1]
 pres_synonym <- data.frame(b)
 colnames(pres_synonym)[1] <- "similarity"
 
-head(pres_synonym %>% arrange(-similarity))
+top_syns <- pres_synonym %>% arrange(-similarity)
 
+####
 
+#grab 20 words
+forplot<-as.data.frame(word_vectors[200:220,])
+forplot$word<-rownames(forplot)
 
-
-
-
-
-
-
+ggplot(forplot, aes(x=V1, y=V2, label=word))+
+  geom_text(aes(label=word),hjust=0, vjust=0, color="blue")+
+  theme_minimal()+
+  xlab("First Dimension Created by SVD")+
+  ylab("Second Dimension Created by SVD")

@@ -1,30 +1,23 @@
-library(tidyverse)
-library(tidytext)
-library(harrypotter)
-library(stringi)
-
-set.seed(1234)
-
 # names of each book
 hp_books <- c(
-  "philosophers_stone"
-  #"chamber_of_secrets",
-  #"prisoner_of_azkaban", 
-  #"goblet_of_fire",
-  #"order_of_the_phoenix", 
-  #"half_blood_prince",
-  #"deathly_hallows"
+  #"philosophers_stone",
+  #"chamber_of_secrets"
+  # "prisoner_of_azkaban", 
+  # "goblet_of_fire",
+  # "order_of_the_phoenix", 
+  # "half_blood_prince",
+  "deathly_hallows"
 )
 
 # combine books into a list
 hp_words <- list(
-  philosophers_stone
+  #philosophers_stone,
   #chamber_of_secrets
-  #prisoner_of_azkaban,
-  #goblet_of_fire,
-  #order_of_the_phoenix,
-  #half_blood_prince,
-  #deathly_hallows
+  # prisoner_of_azkaban,
+  # goblet_of_fire,
+  # order_of_the_phoenix,
+  # half_blood_prince,
+  deathly_hallows
 ) %>%
   # name each list element
   set_names(hp_books) %>%
@@ -40,23 +33,7 @@ hp_words <- list(
   ungroup()
 
 lst <- hp_words %>%
-  filter(chapter == 17)
-
-#' https://www.sparknotes.com/lit/harrypotter/characters/
-# characters <- c(
-#   "Harry",
-#   "Hermione",
-#   "Ron",
-#   "Hagrid",
-#   "Dumbledore",
-#   "Voldemort",
-#   "Malfoy",
-#   "Neville",
-#   "Mcgonagall",
-#   "Snape",
-#   "Quirrell",
-#   "Ginny"
-# )
+  filter(chapter == 31)
 
 #' @references:
 #' https://stackoverflow.com/questions/29508943/r-regular-expression-isolate-a-string-between-quotes
@@ -64,20 +41,34 @@ hp_quotes <- stri_extract_all_regex(lst$value, '.{15}"[^"]*".{20}')[[1]]
 
 #' Regex to match name in some number of words window after \"
 
+
 # sample_lst <- c(
 #   # make a sample and text regex, then apply to whole list
 #   # in the end add a new column to the quotes with plausible char name, if nothing
 #   # then NA
-#   hp_quotes[4],
 #   hp_quotes[5],
-#   hp_quotes[61],
-#   hp_quotes[113],
+#   hp_quotes[8],
+#   hp_quotes[66],
+#   hp_quotes[69],
+#   hp_quotes[72],
+#   hp_quotes[75],
+#   hp_quotes[79],
+#   hp_quotes[80],
+#   hp_quotes[82],
+#   hp_quotes[89],
+#   hp_quotes[90],
+#   hp_quotes[91],
+#   hp_quotes[95],
 #   hp_quotes[96],
-#   hp_quotes[133],
-#   hp_quotes[135],
-#   hp_quotes[137]
+#   hp_quotes[98],
+#   hp_quotes[101],
+#   hp_quotes[102],
+#   hp_quotes[105],
+#   hp_quotes[118],
+#   hp_quotes[124],
+#   hp_quotes[132]
 # )
-# sample_lst <- as.data.frame(sample_lst)
+# sample_lst <- as_tibble(sample_lst)
 # names(sample_lst)[1] <- "quotes"
 
 #' @references: 
@@ -91,19 +82,41 @@ hp_quotes <- stri_extract_all_regex(lst$value, '.{15}"[^"]*".{20}')[[1]]
 #     lapply(list_of_words, function(x) grepl(x, text, ignore.case = T)))], collapse=",")) %>%
 #   data.frame()
 
-list_of_words <- c("Harry", "Hagrid", "Dumbledore", "Voldemort", "Mcgonagall")
+list_of_words <- c(
+  "Harry",
+  "Hermione",
+  "Ron",
+  "Hagrid",
+  "Neville",
+  "Mcgonagall",
+  "Ginny",
+  "Tonks"
+)
 
 df <- tibble::tibble(#page=c(12,6,9,18,2,15,81,65),
-                     text=c(hp_quotes[4],
-                            hp_quotes[5],
-                            hp_quotes[61],
-                            hp_quotes[113],
-                            hp_quotes[96],
-                            hp_quotes[133],
-                            hp_quotes[135],
-                            hp_quotes[137]))
+  text=c(hp_quotes[5],
+         hp_quotes[8],
+         hp_quotes[66],
+         hp_quotes[69],
+         hp_quotes[72],
+         hp_quotes[75],
+         hp_quotes[79],
+         hp_quotes[80],
+         hp_quotes[82],
+         hp_quotes[89],
+         hp_quotes[90],
+         hp_quotes[91],
+         hp_quotes[95],
+         hp_quotes[96],
+         hp_quotes[98],
+         hp_quotes[101],
+         hp_quotes[102],
+         hp_quotes[105],
+         hp_quotes[118],
+         hp_quotes[124],
+         hp_quotes[132]))
 
-characters <- c("dog,hen", "lion,tiger", "horse", FALSE, "dog", "tiger", "lion", FALSE)
+characters <- vector(mode="character", length=21)
 
 df2 <- df %>% 
   rowwise() %>%
@@ -117,8 +130,7 @@ df2 <- as.data.frame(df2)
 
 df2 <- df2 %>%
   filter(characters != "")
-
-df3 <- df2[4:7, ]
+  #filter(!str_detect(characters, ",")) # only single chars
 
 
 #####
@@ -127,5 +139,7 @@ library(textnets)
 
 prepped_hp <- PrepText(df2, groupvar = "characters", textvar = "text", node_type = "groups", tokenizer = "words", pos = "nouns", remove_stop_words = TRUE, compound_nouns = TRUE)
 
-#hp_text_network <- CreateTextnet(prepped_hp)
-#VisTextNet(hp_text_network, label_degree_cut = 0)
+hp_text_network <- CreateTextnet(prepped_hp)
+
+VisTextNet(hp_text_network, label_degree_cut = 0)
+
