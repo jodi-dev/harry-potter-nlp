@@ -94,6 +94,7 @@ df <- tibble::tibble(#page=c(12,6,9,18,2,15,81,65),
 
 characters <- vector(mode="character", length=193)
 
+# match
 df2 <- df %>% 
   rowwise() %>%
   mutate(characters = paste(list_of_words[unlist(

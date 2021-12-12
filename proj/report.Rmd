@@ -44,22 +44,33 @@ The goal of this study was to extract and visualize social interactions between 
 - identify by first name or heuristic common alias (ex. Malfoy instead of Draco) as I am only able to use exact/partial string matching
 - adquate to obtain interesting visualizations from; sufficient with limitations of space and wanting to avoid cluttering
 
-### Quotes Extraction
+### Quotes Extraction and Preparation
+
+- a regex pattern was used to match character dialogues enclosed by double quotation marks, along with a 15 letters head and 20 letters trailing tail
+- character names were assigned by finding a match in the extracted dialogues
+- this was a sufficient heuristic to obtain dialogues with involved characters' first names mentioned in the vicinity
+- list of characters' names use were sometimes referenced by list of popularity, or again based on personal preference (i.e. which characters' interactions might I wish to see)
 
 ### Use of TextNets Package
 
 - creator, background
-- textnets information from tutorial and on github page
 
-*What is the basis of the measure of distance?*
+- PrepText function was used to tokenize, lemmatize and remove stopwords from quotes to prepare words for creating the network
+- both co-occurrence and word semantics are used to determine similarity
 
 ## Conclusions
 
+### Results
+
+### Discussion
+
+
 ### Limitations
 
-- 
-- not a comprehensive survey of the literature, different dynamics may exist in parts that are not surveyed
-- 
+- limitation in knowledge about literary and text analysis to uncover underlying structures in Harry Potter text that is meaningful
+- heuristic used in obtaining quotes is flawed; the method to extract quotes by matching to pattern of double quotes with escape characters doesn't comprehensively obtain all quotes, and then to extract match of character name from it is likely even more inaccurate
+- not a comprehensive survey of the literature, different dynamics may exist in parts that are not surveyed due to poor choice of sampling
+- PrepText defaults to using all parts of speech in quotes provided, however, limiting (e.g. Rule, Cointet, and Bearman 2015)
 
 ## References
 
