@@ -109,8 +109,11 @@ df3 <- df2 %>%
 
 library(textnets)
 
-prepped_hp <- PrepText(df3, groupvar = "characters", textvar = "text", node_type = "groups", tokenizer = "words", pos = "nouns", remove_stop_words = TRUE, compound_nouns = TRUE)
+prepped_hp <- PrepText(df3, groupvar = "characters", textvar = "text", node_type = "words", tokenizer = "words", pos = "nouns", remove_stop_words = TRUE, compound_nouns = TRUE)
 
 hp_text_network <- CreateTextnet(prepped_hp)
 
 VisTextNet(hp_text_network, label_degree_cut = 0)
+
+
+# 

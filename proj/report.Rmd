@@ -1,0 +1,78 @@
+---
+title: "report"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Harry Potter 
+
+## Abstract
+
+## Motivation
+
+The goal of this study was to extract and visualize social interactions between individuals and words in the Harry Potter series by J.K. Rowling. Pairs of interactions may reveal features of literary interest.
+
+
+
+## Related Work
+
+- Quantitative Analysis of Literary Styles
+  - there is structure in text data that identifies authorship, can be discovered by quantifying relevant features related to literary style
+  - challenging to determine which sets of features contributes to authorship
+  - frequency distributions of function words (words with very little contextual meaning) were used by Mosteller and Wallace to determine authorship; assumption was that function words (conjunctions, propositions, and pronouns) are used unconsciously and therefore are consistent despite topic changes
+
+- Characteristic Analysis of Social Network Constructed from Literary Fiction
+  - constructed social networks for fictional characters, with characters as vertices and relationship strengths as edges
+  - analyzed topological structures of social network graphs to reveal hidden structure of fiction novels, to order works by graph topology as opposed to traditional categories
+  - co-occurrence patterns reveal features hidden in the text
+  - interactions measured by statement distance between characters; i.e. co-occurrence of full character names in one statement suggest they are highly related (as opposed to word semantics spoken by the characters, in contrast with our methods)
+  
+- Augur: Mining Human Behaviors from Fiction to Power Interactive Systems
+  - visions of human-computer interaction show computers understand human actions and adjusts their services based on prediction of the human's next likely course of action
+  - demonstrated it was possible to mine knowledge base of real life human behaviour from works of fiction for predicting huamn activity
+  - fictional human lives mirrors real human lives quite closely
+
+## Methods
+
+### Locate Character Scenes and Appearances
+
+- position of characters as well as scenes of social interaction are determined by quotes, as conversations typically indicate social interactions
+- ignore designated words and corresponding characters
+- identify by first name or heuristic common alias (ex. Malfoy instead of Draco) as I am only able to use exact/partial string matching
+- adquate to obtain interesting visualizations from; sufficient with limitations of space and wanting to avoid cluttering
+
+### Quotes Extraction
+
+### Use of TextNets Package
+
+- creator, background
+- textnets information from tutorial and on github page
+
+*What is the basis of the measure of distance?*
+
+## Conclusions
+
+### Limitations
+
+- 
+- not a comprehensive survey of the literature, different dynamics may exist in parts that are not surveyed
+- 
+
+## References
+
+*remember to format in IEEE style*
+- [Word Embeddings](https://cbail.github.io/textasdata/word2vec/rmarkdown/word2vec.html)
+- [Creating Text Networks](https://cbail.github.io/textasdata/text-networks/rmarkdown/Text_Networks.html)
+- [Characteristic Analysis of Social Network Constructed from Literary Fiction]()
+- [Augur: Mining Human Behaviors from Fiction to Power Interactive Systems]()
+- [Combining natural language processing and network analysis to examine how advocacy organizations stimulate conversation on social media]()
+- [Building a Harry Potter QuoteBot with Machine Learning](https://towardsdatascience.com/building-a-quotebot-with-machine-learning-eca39272e3b7)
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
