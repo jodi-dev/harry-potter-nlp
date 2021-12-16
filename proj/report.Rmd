@@ -11,45 +11,29 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Abstract
 
-## Motivation
+## Motivation? or maybe this is abstract
 
-The goal of this study was to extract and visualize social interactions between individuals and words in the Harry Potter series by J.K. Rowling. Pairs of interactions may reveal features of literary interest.
-
-
+Word embedding is a natural language processing (NLP) technique used to quantify the similar between words by mathematically modelling the co-occurrence of words in a body of text. Word embedding is widely used in many applications of text analysis, such as finding analogies (C Bail word emedding tutorial), identifying features in authorship (Roger d. peng quant anal lit styles) and relationship strengths between characters in works of fiction (char anal of social network). An opportunity to apply work embedding techniques in popular works of fiction presented itself with the Harry Potter text package made available in R, on CRAN. The Harry Potter text package contained the full text of all seven original series book presents an opportunity to apply text analysis techniques to uncover interesting insights. In this exploratory work, we applied word embedding techniques and text network visualization package (C Bail text networks), we analyzed and visualized character interactions in different parts of the stories, to see how different characters associate in different settings. The results of this study show that word embedding techniques can be applied to extract insights of character interactions in Harry Potter texts by J.K. Rowling.
 
 ## Related Work
 
-- Quantitative Analysis of Literary Styles
-  - there is structure in text data that identifies authorship, can be discovered by quantifying relevant features related to literary style
-  - challenging to determine which sets of features contributes to authorship
-  - frequency distributions of function words (words with very little contextual meaning) were used by Mosteller and Wallace to determine authorship; assumption was that function words (conjunctions, propositions, and pronouns) are used unconsciously and therefore are consistent despite topic changes
+Analysis of works of fiction at the word level may reveal interesting insight of literary value, and sometimes it may even have surprising real world applications. In the literary spehere, Peng et al. published an overview on the signature of authorship in literary styles. It has been established that there is structure in text data that identifies authorship, which can be discovered by quantifying relevant features related to literary style. However, it is way more challenging is how to determine which sets of features contributes to authorship.
 
-- Characteristic Analysis of Social Network Constructed from Literary Fiction
-  - constructed social networks for fictional characters, with characters as vertices and relationship strengths as edges
-  - analyzed topological structures of social network graphs to reveal hidden structure of fiction novels, to order works by graph topology as opposed to traditional categories
-  - co-occurrence patterns reveal features hidden in the text
-  - interactions measured by statement distance between characters; i.e. co-occurrence of full character names in one statement suggest they are highly related (as opposed to word semantics spoken by the characters, in contrast with our methods)
-  
-- Augur: Mining Human Behaviors from Fiction to Power Interactive Systems
-  - visions of human-computer interaction show computers understand human actions and adjusts their services based on prediction of the human's next likely course of action
-  - demonstrated it was possible to mine knowledge base of real life human behaviour from works of fiction for predicting huamn activity
-  - fictional human lives mirrors real human lives quite closely
+In a more applicable twist, Fast et al derived a knowledge base of human behaviour from works of fiction using text analysis techniques. These researchers showed that computers understood human actions and were able to adjust their services to humans based on prediction of the human's next likely course of action. Their work revealed that fictional human lives mirrors real human lives quite closely.
+
+Lastly, in another study, Seo et al. constructed social networks for fictional characters. They visualized fictional characters as vertices and diagrammed the relationship strengths between them as edges. Seo et al. analyzed topological structures of social network graphs to reveal hidden structure of fiction novels, to order works by graph topology as opposed to traditional categories. In their work, they were able to show that co-occurrence patterns reveal features hidden in the text. Interactions measured by statement distance between characters; i.e. co-occurrence of full character names in one statement suggest they are highly related. 
+
+In this study, we created social network graphs in a similar approach as Seo et al. However, as opposed to character name occurrences, we used semantic similarity of words spoken by the characters (i.e. character dialogues in quotes) to visualize "social closeness".
 
 ## Methods
 
 ### Locate Character Scenes and Appearances
 
-- position of characters as well as scenes of social interaction are determined by quotes, as conversations typically indicate social interactions
-- ignore designated words and corresponding characters
-- identify by first name or heuristic common alias (ex. Malfoy instead of Draco) as I am only able to use exact/partial string matching
-- adquate to obtain interesting visualizations from; sufficient with limitations of space and wanting to avoid cluttering
+Since the Harry Potter text package contained all text from the books in strings, we had to come up with a heuristic to determine how to extract and isolate text that represent social interactions. The chosen shortcut to quickly get relevant information about the position of characters as well as scenes of social interaction are determined by quotes, as conversations typically indicate social interactions. Going off of those assumptions, we then assumed based on our understanding of the English literature, that typically quotes are followed by signatures that designate which character spoke it (e.g. "...", said Harry). Therefore, obtaining some text character surrounding quotes will obtain the name of the character speaking. Additionally, some rules to simplify character name extraction. For example, Seo et al. ignored designated words used in place of character names (i.e. he, him, she, etc). For our purposes, to reduce complexity of analysis, we would want to obtain interesting diagrams while working with limited space in . If our methods could identify characters' quotes by first name or heuristic common alias (ex. Malfoy instead of Draco) would be sufficient.
 
 ### Quotes Extraction and Preparation
 
-- a regex pattern was used to match character dialogues enclosed by double quotation marks, along with a 15 letters head and 20 letters trailing tail
-- character names were assigned by finding a match in the extracted dialogues
-- this was a sufficient heuristic to obtain dialogues with involved characters' first names mentioned in the vicinity
-- list of characters' names use were sometimes referenced by list of popularity, or again based on personal preference (i.e. which characters' interactions might I wish to see)
+A regex pattern was used to match character dialogues enclosed by double quotation marks, along with a 15 letters head and 20 letters trailing tail; the resulting match was extracted from the text of books. Lists of characters' names use were sometimes referenced by list of popularity, or again based on personal preference (i.e. which characters' interactions might I wish to see). Character names were assigned by finding a match in the extracted dialogues.
 
 ### Use of TextNets Package
 
@@ -61,6 +45,8 @@ The goal of this study was to extract and visualize social interactions between 
 ## Conclusions
 
 ### Results
+
+
 
 ### Discussion
 
