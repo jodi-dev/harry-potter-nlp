@@ -37,19 +37,21 @@ A regex pattern was used to match character dialogues enclosed by double quotati
 
 ### Use of TextNets Package
 
-- creator, background
+The R textnets package was used to create the Harry Potter characters social network graph. Two-mode network projection was used to link up and show relationship between pairs of characters, although only one of the modes, namely "metadata" or character names as nodes are of interest.
 
-- PrepText function was used to tokenize, lemmatize and remove stopwords from quotes to prepare words for creating the network
-- both co-occurrence and word semantics are used to determine similarity
+Harry Potter data was prepped as a dataframe contianing rows of extracted quotes form book text, and character names extracted from quotes. Then, PrepText function was used to tokenize, lemmatize and remove stopwords from quotes to prepare words for creating the network. PrepText function prepared a weighted adjacency matrix by transposing cross-product of the adjacency matrix with term-frequency inverse-document frequency matrix of words in the quotes. In this way, word similarity was quantified.
 
 ## Conclusions
 
 ### Results
 
+A. Harry Potter and the Philosopher Stone 75 Quotes Visualization
 
+B. Battle of Hogwarts (Harry Potter and the Deathly Hallows) 193 Quotes Visualization
 
 ### Discussion
 
+In this work, we mapped word similarity in dialogue text to Harry Potter characters and created a social network graph to visualize character relationships. Quotes with head and tail letters were extracted from the Harry Potter book texts, and word similarity was calculated by the textnet package function PrepText, which created a weighted adjacency matrix using word embedding technique. The method of quantitative text analysis was then applied to two literature selections. 1.Philosopher Stone quotes sample 2.Battle of Hogwarts quotes sample
 
 ### Limitations
 
