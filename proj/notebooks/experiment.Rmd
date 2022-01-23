@@ -1,0 +1,59 @@
+---
+title: "Harry Potter Book of Ideas"
+author: "Jodi Qiao, dqiao100@uottawa.ca"
+date: "23/01/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(harrypotter)
+library(tidyverse)
+library(tidytext)
+```
+
+## Harry Potter Book of Ideas
+
+This notebook is for exploring some project ideas with the [harrypotter package in R](https://github.com/bradleyboehmke/harrypotter).
+
+```{r}
+# names of each book
+hp_books <- c(
+  "philosophers_stone",
+  "chamber_of_secrets",
+  "prisoner_of_azkaban", 
+  "goblet_of_fire",
+  "order_of_the_phoenix", 
+  "half_blood_prince",
+  "deathly_hallows"
+)
+```
+
+
+
+```{r}
+# combine books into a tibble by chapters
+hp_words <- list(
+  philosophers_stone,
+  chamber_of_secrets,
+  prisoner_of_azkaban,
+  goblet_of_fire,
+  order_of_the_phoenix,
+  half_blood_prince,
+  deathly_hallows
+) %>%
+  # name each list element
+  set_names(hp_books) %>%
+  # convert each book to a data frame and merge into a single data frame
+  map_df(as_tibble, .id = "book") %>%
+  # convert book to a factor
+  mutate(book = factor(book, levels = hp_books)) %>%
+  # remove empty chapters
+  drop_na(value) %>%
+  # create a chapter id column
+  group_by(book) %>%
+  mutate(chapter = row_number(book)) %>%
+  ungroup()
+
+```
+
